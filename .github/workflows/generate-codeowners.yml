@@ -1,18 +1,30 @@
-name: Update CODEOWNERS
+name: Generate CODEOWNERS
+
 on:
   pull_request:
-    branches:
-      - main 
+    types: [opened, synchronize, reopened]
+
 jobs:
-  update-codeowners:
-    runs-on: ubuntu-20.04
-    name: Update CODEOWNERS
+  generate-codeowners:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-      - name: Update CODEOWNERS file
-        uses: gmolau/codeowners@v0.1.5
-      - name: Commit CODEOWNERS file
-        uses: EndBug/add-and-commit@v7
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install codeowners-generator
+        run: |
+          npm install -g codeowners-generator
+      - name: Verify installation
+        run: which codeowners-generator 
+    
+      - name: Generate CODEOWNERS file
+        run: |
+          codeowners-generator generate
+
+      - name: Commit and push CODEOWNERS file
+        uses: EndBug/add-and-commit@v9
         with:
-          message: Update CODEOWNERS file (CODEOWNERS Bot)
+          author_name: github-actions
+          author_email: github-actions@github.com
+          message: "Generate CODEOWNERS file"
