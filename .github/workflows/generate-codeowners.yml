@@ -15,7 +15,9 @@ jobs:
       - name: Install codeowners-generator
         run: |
           npm install codeowners-generator
-
+      - name: Verify installation
+        run: which codeowners-generator 
+    
       - name: Generate CODEOWNERS file
         run: |
           codeowners-generator generate
