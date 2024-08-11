@@ -4,9 +4,9 @@
   "main": "index.js",
   "codeowners-generator": {
     "includes": [
-      "**/CODEOWNERS"
+      "**/CODEOWNERS","!.github/CODEOWNERS"
     ],
-    "output": "CODEOWNERS",
+    "output": ".github/CODEOWNERS",
     "customRegenerationCommand": "npm run codeowners"
   },
   "scripts": {
